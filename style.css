@@ -1,0 +1,142 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  --cell-size: 200px;
+  --smaller-cell-size: 60px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+  --smaller-mark-size: calc(var(--smaller-cell-size) * 0.9);
+}
+
+body {
+  margin: 0 auto;
+}
+
+/* Code below covers how I created the board */
+
+.super-board {
+  width: 100vw;
+  height: 100vh;
+  gap: 2px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(3, auto);
+  z-index: 9;
+  position: absolute;
+}
+
+.top {
+  top: 0;
+}
+
+.board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  z-index: 1;
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: white;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.smallcell {
+  position: relative;
+  width: var(--smaller-cell-size);
+  height: var(--smaller-cell-size);
+  background-color: white;
+  border: 1px solid black;
+  display: flex;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3),
+.smallcell:first-child,
+.smallcell:nth-child(2),
+.smallcell:nth-child(3) {
+  border-top: none;
+}
+
+.cell:nth-child(3n + 1),
+.smallcell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(3n + 3),
+.smallcell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7),
+.smallcell:last-child,
+.smallcell:nth-child(8),
+.smallcell:nth-child(7) {
+  border-bottom: none;
+}
+
+/* Code above covers how I created the board
+Code below covers how the winning message is made */
+
+.smallcell.x,
+.smallcell.circle {
+  cursor: not-allowed;
+}
+
+.winning-message {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 5rem;
+  flex-direction: column;
+  z-index: 15;
+}
+
+.winning-message button {
+  font-size: 3rem;
+  background-color: white;
+  border: 1px solid black;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+}
+
+.winning-message button:hover {
+  background-color: black;
+  color: white;
+  border-color: white;
+}
+
+.winning-message.show {
+  display: flex;
+}
+
+.hugeblock {
+  width: 190px;
+  height: 190px;
+  position: absolute;
+  background-color: black;
+  z-index: 11;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: no-drop;
+}
